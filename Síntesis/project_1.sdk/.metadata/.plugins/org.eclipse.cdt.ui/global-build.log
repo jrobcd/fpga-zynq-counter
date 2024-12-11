@@ -1,0 +1,267 @@
+10:37:46 **** Incremental Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: No se hace nada para `main-build'.
+12:39:16 **** Auto Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/contador.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/contador.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../contador_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/contador.d" -MT"src/contador.o" -o "src/contador.o" "../src/contador.c"
+'Finished building: ../src/contador.c'
+' '
+'Building target: contador.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../contador_bsp/ps7_cortexa9_0/lib -o "contador.elf"  ./src/contador.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: contador.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size contador.elf  |tee "contador.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  22628	   1144	  22568	  46340	   b504	contador.elf
+'Finished building: contador.elf.size'
+' '
+12:39:20 **** Incremental Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: No se hace nada para `main-build'.
+15:20:36 **** Incremental Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: No se hace nada para `main-build'.
+16:01:37 **** Auto Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/contador.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/contador.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../contador_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/contador.d" -MT"src/contador.o" -o "src/contador.o" "../src/contador.c"
+../src/contador.c:10:5: error: unknown type name 'int32_t'
+     int32_t base_addr;
+     ^~~~~~~
+../src/contador.c:11:5: error: unknown type name 'int32_t'
+     int32_t reset;        // Estado de reset (0: no activo, 1: activo)
+     ^~~~~~~
+../src/contador.c:12:5: error: unknown type name 'int32_t'
+     int32_t control;      // Modo del contador (0: ascendente, 1: descendente)
+     ^~~~~~~
+../src/contador.c:15:47: error: unknown type name 'int32_t'
+ void Contador_Init(Contador_Config *contador, int32_t base_addr) {
+                                               ^~~~~~~
+../src/contador.c:21:51: error: unknown type name 'int32_t'
+ void Contador_SetReset(Contador_Config *contador, int32_t reset) {
+                                                   ^~~~~~~
+../src/contador.c:27:53: error: unknown type name 'int32_t'
+ void Contador_SetControl(Contador_Config *contador, int32_t control) {
+                                                     ^~~~~~~
+../src/contador.c:33:1: error: unknown type name 'int32_t'
+ int32_t Contador_ReadCount(Contador_Config *contador) {
+ ^~~~~~~
+../src/contador.c: In function 'Contador_ReadCount':
+../src/contador.c:34:5: error: unknown type name 'int32_t'
+     int32_t count = Xil_In32(contador->base_addr + REG_COUNT_OUT_OFFSET);
+     ^~~~~~~
+../src/contador.c:34:21: warning: implicit declaration of function 'Xil_In32' [-Wimplicit-function-declaration]
+     int32_t count = Xil_In32(contador->base_addr + REG_COUNT_OUT_OFFSET);
+                     ^~~~~~~~
+../src/contador.c:35:5: warning: implicit declaration of function 'xil_printf'; did you mean '__builtin_printf'? [-Wimplicit-function-declaration]
+     xil_printf("Current count value: 0x%02X\r\n", count & 0xF); // Solo los 4 bits
+     ^~~~~~~~~~
+     __builtin_printf
+../src/contador.c: In function 'main':
+../src/contador.c:49:5: warning: implicit declaration of function 'Contador_Init'; did you mean 'Contador_ReadCount'? [-Wimplicit-function-declaration]
+     Contador_Init(&contador, CONTADOR_BASE_ADDR);
+     ^~~~~~~~~~~~~
+     Contador_ReadCount
+../src/contador.c:1:28: error: 'XPAR_CONTADORIP_0_S00_AXI_BASEADDR' undeclared (first use in this function)
+ #define CONTADOR_BASE_ADDR XPAR_CONTADORIP_0_S00_AXI_BASEADDR
+                            ^
+../src/contador.c:1:28: note: in definition of macro 'CONTADOR_BASE_ADDR'
+ #define CONTADOR_BASE_ADDR XPAR_CONTADORIP_0_S00_AXI_BASEADDR
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/contador.c:1:28: note: each undeclared identifier is reported only once for each function it appears in
+ #define CONTADOR_BASE_ADDR XPAR_CONTADORIP_0_S00_AXI_BASEADDR
+                            ^
+../src/contador.c:1:28: note: in definition of macro 'CONTADOR_BASE_ADDR'
+ #define CONTADOR_BASE_ADDR XPAR_CONTADORIP_0_S00_AXI_BASEADDR
+                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/contador.c:52:5: warning: implicit declaration of function 'Contador_SetReset'; did you mean 'Contador_ReadCount'? [-Wimplicit-function-declaration]
+     Contador_SetReset(&contador, 0x00); // Desactiva reset
+     ^~~~~~~~~~~~~~~~~
+     Contador_ReadCount
+../src/contador.c:53:5: warning: implicit declaration of function 'Contador_SetControl'; did you mean 'Contador_ReadCount'? [-Wimplicit-function-declaration]
+     Contador_SetControl(&contador, 0x00); // Configura modo ascendente
+     ^~~~~~~~~~~~~~~~~~~
+     Contador_ReadCount
+make: *** [src/contador.o] Error 1
+16:05:23 **** Auto Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/contador.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/contador.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../contador_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/contador.d" -MT"src/contador.o" -o "src/contador.o" "../src/contador.c"
+'Finished building: ../src/contador.c'
+' '
+'Building target: contador.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../contador_bsp/ps7_cortexa9_0/lib -o "contador.elf"  ./src/contador.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: contador.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size contador.elf  |tee "contador.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  22628	   1144	  22568	  46340	   b504	contador.elf
+'Finished building: contador.elf.size'
+' '
+16:06:01 **** Auto Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/contador.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/contador.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../contador_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/contador.d" -MT"src/contador.o" -o "src/contador.o" "../src/contador.c"
+../src/contador.c: In function 'main':
+../src/contador.c:79:19: error: 'DELAY_5_SECONDS' undeclared (first use in this function)
+             Delay(DELAY_5_SECONDS / 5); // Dividir los 5 segundos en intervalos
+                   ^~~~~~~~~~~~~~~
+../src/contador.c:79:19: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [src/contador.o] Error 1
+16:06:11 **** Incremental Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/contador.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/contador.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../contador_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/contador.d" -MT"src/contador.o" -o "src/contador.o" "../src/contador.c"
+../src/contador.c: In function 'main':
+../src/contador.c:79:19: error: 'DELAY_5_SECONDS' undeclared (first use in this function)
+             Delay(DELAY_5_SECONDS / 5); // Dividir los 5 segundos en intervalos
+                   ^~~~~~~~~~~~~~~
+../src/contador.c:79:19: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [src/contador.o] Error 1
+16:14:09 **** Auto Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/contador.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/contador.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../contador_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/contador.d" -MT"src/contador.o" -o "src/contador.o" "../src/contador.c"
+'Finished building: ../src/contador.c'
+' '
+'Building target: contador.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../contador_bsp/ps7_cortexa9_0/lib -o "contador.elf"  ./src/contador.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: contador.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size contador.elf  |tee "contador.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  22628	   1144	  22568	  46340	   b504	contador.elf
+'Finished building: contador.elf.size'
+' '
+16:15:43 **** Auto Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/contador.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/contador.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../contador_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/contador.d" -MT"src/contador.o" -o "src/contador.o" "../src/contador.c"
+../src/contador.c: In function 'Contador_SetControl':
+../src/contador.c:6:32: error: 'XPAR_CONTADOR_0_BASEADDR' undeclared (first use in this function); did you mean 'XPAR_SCUWDT_0_BASEADDR'?
+ #define CONTADOR_BASE_ADDR     XPAR_CONTADOR_0_BASEADDR
+                                ^
+../src/contador.c:13:15: note: in expansion of macro 'CONTADOR_BASE_ADDR'
+     Xil_Out32(CONTADOR_BASE_ADDR + REG_CONTROL_OFFSET, mode);
+               ^~~~~~~~~~~~~~~~~~
+../src/contador.c:6:32: note: each undeclared identifier is reported only once for each function it appears in
+ #define CONTADOR_BASE_ADDR     XPAR_CONTADOR_0_BASEADDR
+                                ^
+../src/contador.c:13:15: note: in expansion of macro 'CONTADOR_BASE_ADDR'
+     Xil_Out32(CONTADOR_BASE_ADDR + REG_CONTROL_OFFSET, mode);
+               ^~~~~~~~~~~~~~~~~~
+../src/contador.c: In function 'Contador_Reset':
+../src/contador.c:6:32: error: 'XPAR_CONTADOR_0_BASEADDR' undeclared (first use in this function); did you mean 'XPAR_SCUWDT_0_BASEADDR'?
+ #define CONTADOR_BASE_ADDR     XPAR_CONTADOR_0_BASEADDR
+                                ^
+../src/contador.c:18:15: note: in expansion of macro 'CONTADOR_BASE_ADDR'
+     Xil_Out32(CONTADOR_BASE_ADDR + REG_RESET_OFFSET, 0x1);
+               ^~~~~~~~~~~~~~~~~~
+../src/contador.c: In function 'Contador_GetValue':
+../src/contador.c:6:32: error: 'XPAR_CONTADOR_0_BASEADDR' undeclared (first use in this function); did you mean 'XPAR_SCUWDT_0_BASEADDR'?
+ #define CONTADOR_BASE_ADDR     XPAR_CONTADOR_0_BASEADDR
+                                ^
+../src/contador.c:24:21: note: in expansion of macro 'CONTADOR_BASE_ADDR'
+     return Xil_In32(CONTADOR_BASE_ADDR + REG_COUNT_OUT_OFFSET);
+                     ^~~~~~~~~~~~~~~~~~
+../src/contador.c:25:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+make: *** [src/contador.o] Error 1
+16:15:52 **** Incremental Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/contador.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/contador.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../contador_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/contador.d" -MT"src/contador.o" -o "src/contador.o" "../src/contador.c"
+../src/contador.c: In function 'Contador_SetControl':
+../src/contador.c:6:32: error: 'XPAR_CONTADOR_0_BASEADDR' undeclared (first use in this function); did you mean 'XPAR_SCUWDT_0_BASEADDR'?
+ #define CONTADOR_BASE_ADDR     XPAR_CONTADOR_0_BASEADDR
+                                ^
+../src/contador.c:13:15: note: in expansion of macro 'CONTADOR_BASE_ADDR'
+     Xil_Out32(CONTADOR_BASE_ADDR + REG_CONTROL_OFFSET, mode);
+               ^~~~~~~~~~~~~~~~~~
+../src/contador.c:6:32: note: each undeclared identifier is reported only once for each function it appears in
+ #define CONTADOR_BASE_ADDR     XPAR_CONTADOR_0_BASEADDR
+                                ^
+../src/contador.c:13:15: note: in expansion of macro 'CONTADOR_BASE_ADDR'
+     Xil_Out32(CONTADOR_BASE_ADDR + REG_CONTROL_OFFSET, mode);
+               ^~~~~~~~~~~~~~~~~~
+../src/contador.c: In function 'Contador_Reset':
+../src/contador.c:6:32: error: 'XPAR_CONTADOR_0_BASEADDR' undeclared (first use in this function); did you mean 'XPAR_SCUWDT_0_BASEADDR'?
+ #define CONTADOR_BASE_ADDR     XPAR_CONTADOR_0_BASEADDR
+                                ^
+../src/contador.c:18:15: note: in expansion of macro 'CONTADOR_BASE_ADDR'
+     Xil_Out32(CONTADOR_BASE_ADDR + REG_RESET_OFFSET, 0x1);
+               ^~~~~~~~~~~~~~~~~~
+../src/contador.c: In function 'Contador_GetValue':
+../src/contador.c:6:32: error: 'XPAR_CONTADOR_0_BASEADDR' undeclared (first use in this function); did you mean 'XPAR_SCUWDT_0_BASEADDR'?
+ #define CONTADOR_BASE_ADDR     XPAR_CONTADOR_0_BASEADDR
+                                ^
+../src/contador.c:24:21: note: in expansion of macro 'CONTADOR_BASE_ADDR'
+     return Xil_In32(CONTADOR_BASE_ADDR + REG_COUNT_OUT_OFFSET);
+                     ^~~~~~~~~~~~~~~~~~
+../src/contador.c:25:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+make: *** [src/contador.o] Error 1
+17:41:26 **** Incremental Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/contador.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/contador.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../contador_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/contador.d" -MT"src/contador.o" -o "src/contador.o" "../src/contador.c"
+'Finished building: ../src/contador.c'
+' '
+'Building target: contador.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../contador_bsp/ps7_cortexa9_0/lib -o "contador.elf"  ./src/contador.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: contador.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size contador.elf  |tee "contador.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  22628	   1144	  22568	  46340	   b504	contador.elf
+'Finished building: contador.elf.size'
+' '
+17:52:08 **** Incremental Build of configuration Debug for project contador ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: No se hace nada para `main-build'.

@@ -1,0 +1,9 @@
+/*
+ * contador.c
+ *
+ *  Created on: 9 dic. 2024
+ *      Author: jrcd_
+ */
+#include "xparameters.h"
+#include "xil_io.h"
+#include "contadorip.h"

@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include "xparameters.h" // Incluye direcciones base de hardware
+#include "xil_io.h"      // Para operaciones de E/S
+
+// Direcciones de registros del contador (ajusta según tu diseño)
+#define CONTADOR_BASE_ADDR     XPAR_CONTADOR_0_BASEADDR
+#define REG_COUNT_OUT_OFFSET   0x00 // Registro donde lees el valor del contador
+#define REG_CONTROL_OFFSET     0x04 // Registro de control (modo asc/desc)
+#define REG_RESET_OFFSET       0x08 // Registro de reset
+
+// Función para escribir un valor al registro de control
+void Contador_SetControl(uint32_t mode) {
+    Xil_Out32(CONTADOR_BASE_ADDR + REG_CONTROL_OFFSET, mode);
+}
+
+// Función para resetear el contador
+void Contador_Reset() {
+    Xil_Out32(CONTADOR_BASE_ADDR + REG_RESET_OFFSET, 0x1);
+    Xil_Out32(CONTADOR_BASE_ADDR + REG_RESET_OFFSET, 0x0);
+}
+
+// Función para leer el valor actual del contador
+uint32_t Contador_GetValue() {
+    return Xil_In32(CONTADOR_BASE_ADDR + REG_COUNT_OUT_OFFSET);
+}
+
+// Función principal: Ciclo de 0 a 5 y reinicio a 0
+void Contador_Ciclo() {
+    uint32_t contador = 0;
+    uint32_t modo = 1; // 1: Ascendente, 0: Descendente
+
+    while (1) {
+        // Lee el valor actual del contador
+        contador = Contador_GetValue();
+        xil_printf("Current count value: 0x%02X\r\n", contador);
+
+        // Si llega a 5, cambia a modo descendente
+        if (contador >= 5 && modo == 1) {
+            xil_printf("Control mode set to: Descending\r\n");
+            modo = 0;
+            Contador_SetControl(modo);
+        }
+        // Si regresa a 0, cambia a modo ascendente
+        else if (contador == 0 && modo == 0) {
+            xil_printf("Control mode set to: Ascending\r\n");
+            modo = 1;
+            Contador_SetControl(modo);
+        }
+
+        // Breve retardo para visualizar el conteo
+        for (volatile int i = 0; i < 1000000; i++);
+
+        // Reinicia el contador si detectas inconsistencias (opcional)
+        if (contador > 5) {
+            xil_printf("Unexpected value detected, resetting counter.\r\n");
+            Contador_Reset();
+        }
+    }
+}
